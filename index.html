@@ -73,13 +73,15 @@
   .contact a { width: fit-content; transform-origin: left center; transition: transform .35s var(--ease); }
   .contact a span { background: var(--fg); color: var(--bg); padding: 1px 7px; }
 
-  .corner {
-    position: fixed; right: var(--gutter); bottom: calc(10px + env(safe-area-inset-bottom)); z-index: 20;
-    display: flex; flex-direction: column; align-items: center; gap: 2px;
+  .app {
+    position: fixed; right: var(--gutter); top: calc(10px + env(safe-area-inset-top)); z-index: 21;
+    display: block; padding: 4px; opacity: .7; transition: opacity .3s, transform .35s var(--ease);
   }
-  .app { display: block; padding: 4px; opacity: .7; transition: opacity .3s, transform .35s var(--ease); }
-  .app img { height: 36px; width: auto; display: block; filter: drop-shadow(0 1px 6px rgba(0,0,0,.5)); }
-  .imp-link { font-size: 9px; letter-spacing: .06em; opacity: .28; padding: 2px; transition: opacity .3s; }
+  .app img { height: 30px; width: auto; display: block; filter: drop-shadow(0 1px 6px rgba(0,0,0,.5)); }
+  .imp-link {
+    position: fixed; right: var(--gutter); bottom: calc(14px + env(safe-area-inset-bottom)); z-index: 20;
+    font-size: 9px; letter-spacing: .06em; opacity: .28; padding: 2px; transition: opacity .3s;
+  }
   .imp-link:hover { opacity: .7; }
 
   /* ---------- Impressum / Datenschutz ---------- */
@@ -192,12 +194,10 @@
   <a id="c-mail" href="#"><span></span></a>
 </div>
 
-<div class="corner">
-  <a class="app" href="https://simeoncoester.github.io/Tech-Assistant-2.0/" target="_blank" rel="noopener" title="Tech Assistent" aria-label="Tech Assistent App öffnen">
-    <img src="img/techassistent-logo.png" alt="Tech Assistent">
-  </a>
-  <button class="imp-link" id="imp-open">Impressum</button>
-</div>
+<a class="app" href="https://simeoncoester.github.io/Tech-Assistant-2.0/" target="_blank" rel="noopener" title="Tech Assistent" aria-label="Tech Assistent App öffnen">
+  <img src="img/techassistent-logo.png" alt="Tech Assistent">
+</a>
+<button class="imp-link" id="imp-open">Impressum</button>
 
 <div class="legal" id="legal" role="dialog" aria-modal="true" aria-label="Impressum und Datenschutz">
   <button class="legal-close" id="imp-close">Schließen ✕</button>
