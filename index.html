@@ -73,11 +73,34 @@
   .contact a { width: fit-content; transform-origin: left center; transition: transform .35s var(--ease); }
   .contact a span { background: var(--fg); color: var(--bg); padding: 1px 7px; }
 
-  .app {
-    position: fixed; right: var(--gutter); bottom: calc(16px + env(safe-area-inset-bottom)); z-index: 20;
-    display: block; padding: 4px; opacity: .7; transition: opacity .3s, transform .35s var(--ease);
+  .corner {
+    position: fixed; right: var(--gutter); bottom: calc(10px + env(safe-area-inset-bottom)); z-index: 20;
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
   }
+  .app { display: block; padding: 4px; opacity: .7; transition: opacity .3s, transform .35s var(--ease); }
   .app img { height: 36px; width: auto; display: block; filter: drop-shadow(0 1px 6px rgba(0,0,0,.5)); }
+  .imp-link { font-size: 9px; letter-spacing: .06em; opacity: .28; padding: 2px; transition: opacity .3s; }
+  .imp-link:hover { opacity: .7; }
+
+  /* ---------- Impressum / Datenschutz ---------- */
+  .legal {
+    position: fixed; inset: 0; z-index: 50; display: none;
+    background: rgba(11,11,11,.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y;
+    padding: calc(56px + env(safe-area-inset-top)) var(--gutter) calc(48px + env(safe-area-inset-bottom));
+  }
+  .legal.open { display: block; }
+  .legal-inner { max-width: 640px; margin: 0 auto; font-size: 14px; line-height: 1.6; color: var(--muted); }
+  .legal h2 { color: var(--fg); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; margin: 36px 0 12px; }
+  .legal h2:first-child { margin-top: 0; }
+  .legal h3 { color: var(--fg); font-size: 14px; font-weight: 600; margin: 18px 0 4px; }
+  .legal p + p { margin-top: 8px; }
+  .legal a { text-decoration: underline; text-underline-offset: 2px; }
+  .legal-close {
+    position: fixed; top: calc(14px + env(safe-area-inset-top)); right: var(--gutter);
+    font-size: 13px; letter-spacing: .1em; text-transform: uppercase; padding: 8px 2px; opacity: .8;
+  }
+  .legal-close:hover { opacity: 1; }
 
   /* ---------- Slides ---------- */
   .track {
@@ -170,9 +193,39 @@
   <a id="c-mail" href="#"><span></span></a>
 </div>
 
-<a class="app" href="https://simeoncoester.github.io/Tech-Assistant-2.0/" target="_blank" rel="noopener" title="Tech Assistent" aria-label="Tech Assistent App öffnen">
-  <img src="img/techassistent-logo.png" alt="Tech Assistent">
-</a>
+<div class="corner">
+  <a class="app" href="https://simeoncoester.github.io/Tech-Assistant-2.0/" target="_blank" rel="noopener" title="Tech Assistent" aria-label="Tech Assistent App öffnen">
+    <img src="img/techassistent-logo.png" alt="Tech Assistent">
+  </a>
+  <button class="imp-link" id="imp-open">Impressum</button>
+</div>
+
+<div class="legal" id="legal" role="dialog" aria-modal="true" aria-label="Impressum und Datenschutz">
+  <button class="legal-close" id="imp-close">Schließen ✕</button>
+  <div class="legal-inner">
+    <h2>Impressum</h2>
+    <p>Angaben gemäß § 5 DDG</p>
+    <p>Simeon Cöster<br>Wittstocker Straße 7A<br>10553 Berlin</p>
+    <p>Telefon: <a href="tel:">–</a><br>E-Mail: <a href="mailto:simeoncoester@gmail.com">simeoncoester@gmail.com</a></p>
+    <p>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV:<br>Simeon Cöster, Anschrift wie oben</p>
+
+    <h2>Datenschutz</h2>
+    <h3>Verantwortlicher</h3>
+    <p>Simeon Cöster, Wittstocker Straße 7A, 10553 Berlin, <a href="mailto:simeoncoester@gmail.com">simeoncoester@gmail.com</a></p>
+    <h3>Hosting</h3>
+    <p>Diese Website wird bei GitHub Pages gehostet (GitHub Inc., 88 Colin P. Kelly Jr. St., San Francisco, CA 94107, USA). Beim Aufruf der Seite verarbeitet GitHub technisch notwendige Daten wie deine IP-Adresse, Datum und Uhrzeit des Zugriffs und Browserinformationen, um die Seite auszuliefern und die Sicherheit zu gewährleisten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer sicheren und stabilen Bereitstellung). Mehr dazu in der <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">Datenschutzerklärung von GitHub</a>.</p>
+    <h3>Schriftarten</h3>
+    <p>Diese Seite nutzt Google Fonts (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland). Dabei wird deine IP-Adresse an Google übertragen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (einheitliche Darstellung der Seite). Mehr dazu in der <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Datenschutzerklärung von Google</a>.</p>
+    <h3>Cookies und Tracking</h3>
+    <p>Diese Website setzt keine Cookies und verwendet keine Analyse- oder Tracking-Werkzeuge.</p>
+    <h3>Kontaktaufnahme</h3>
+    <p>Wenn du mich per E-Mail oder Telefon kontaktierst, verwende ich deine Angaben nur, um deine Anfrage zu bearbeiten (Art. 6 Abs. 1 lit. b und f DSGVO).</p>
+    <h3>Externe Links</h3>
+    <p>Diese Seite verlinkt auf Websites von Künstler:innen, das Protopop Studio und die App Tech Assistent. Für deren Inhalte und Datenverarbeitung sind die jeweiligen Betreiber verantwortlich.</p>
+    <h3>Deine Rechte</h3>
+    <p>Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Außerdem kannst du dich bei einer Datenschutz-Aufsichtsbehörde beschweren, in Berlin bei der Berliner Beauftragten für Datenschutz und Informationsfreiheit.</p>
+  </div>
+</div>
 
 <main class="track" id="track">
   <section class="slide s1 active" id="musiker" aria-label="Musiker">
@@ -242,7 +295,15 @@ function go(i, push = true) {
   if (push) history.replaceState(null, '', '#' + ids[cur]);
 }
 document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); go(+b.dataset.go); }));
+// Impressum
+const legal = $('#legal');
+const legalOpen = () => legal.classList.contains('open');
+const setLegal = open => { legal.classList.toggle('open', open); legal.scrollTop = 0; (open ? $('#imp-close') : $('#imp-open')).focus(); };
+$('#imp-open').onclick = () => setLegal(true);
+$('#imp-close').onclick = () => setLegal(false);
+
 addEventListener('keydown', e => {
+  if (legalOpen()) { if (e.key === 'Escape') setLegal(false); return; }
   if (e.key === 'ArrowRight') go(cur + 1);
   if (e.key === 'ArrowLeft') go(cur - 1);
 });
@@ -252,6 +313,7 @@ addEventListener('hashchange', () => { const k = ids.indexOf(location.hash.slice
 let sx = 0, sy = 0, st = 0;
 addEventListener('touchstart', e => { const t = e.touches[0]; sx = t.clientX; sy = t.clientY; st = Date.now(); }, { passive: true });
 addEventListener('touchend', e => {
+  if (legalOpen()) return;
   const t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
   if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2 && Date.now() - st < 900) go(cur + (dx < 0 ? 1 : -1));
 }, { passive: true });
@@ -259,6 +321,7 @@ addEventListener('touchend', e => {
 // Trackpad / Mausrad: seitlich oder nach unten = weiter
 let acc = 0, lock = 0, reset;
 addEventListener('wheel', e => {
+  if (legalOpen()) return;   // im Impressum normal scrollen
   e.preventDefault();
   const now = Date.now(); if (now < lock) return;
   acc += Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
