@@ -1,0 +1,9 @@
+# Nur die Dateien der Website werden veröffentlicht – alles andere bleibt lokal
+/*
+!/.gitignore
+!/index.html
+!/media/
+!/img/
+/img/*
+!/img/techassistent-logo.png
+!/img/logos/

@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Simeon Cöster</title>
+<meta name="description" content="Simeon Cöster – Schlagzeug, Stagemanagement & Technik, Protopop Studio Berlin.">
+<meta name="theme-color" content="#0b0b0b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;800;900&family=Archivo:wdth,wght@125,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0b0b;
+    --fg: #f2f0ec;
+    --muted: rgba(242, 240, 236, .6);
+    --line: rgba(242, 240, 236, .18);
+    --ease: cubic-bezier(.2,.7,.2,1);
+    --gutter: clamp(16px, 4vw, 56px);
+    --top: calc(76px + env(safe-area-inset-top));
+    --bottom: calc(84px + env(safe-area-inset-bottom));
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%; overflow: hidden; overscroll-behavior: none;
+    background: var(--bg); color: var(--fg);
+  }
+  body {
+    font-family: "Inter Tight", system-ui, -apple-system, sans-serif;
+    font-size: 16px; line-height: 1.4; -webkit-font-smoothing: antialiased;
+    touch-action: pan-x;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  button:focus:not(:focus-visible), a:focus:not(:focus-visible) { outline: none; }
+  :focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+
+  /* ---------- Video unter allen Slides ---------- */
+  .reel { position: fixed; inset: 0; z-index: 0; }
+  .reel video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .reel::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(11,11,11,.6) 0%, rgba(11,11,11,.1) 25%, rgba(11,11,11,.15) 55%, rgba(11,11,11,.8) 100%);
+    transition: background-color .8s;
+  }
+  body[data-slide="1"] .reel::after { background-color: rgba(11,11,11,.4); }
+
+  /* ---------- Kopfzeile ---------- */
+  .head {
+    position: fixed; inset: 0 0 auto 0; z-index: 20;
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    padding: calc(14px + env(safe-area-inset-top)) var(--gutter) 14px;
+  }
+  .nav { display: flex; gap: clamp(14px, 3vw, 40px); }
+  .nav button {
+    position: relative; font-size: 15px; font-weight: 500; padding: 6px 0;
+    opacity: .55; transition: opacity .3s, transform .35s var(--ease); white-space: nowrap;
+  }
+  .nav button small { font-size: 11px; opacity: .7; margin-right: 6px; font-variant-numeric: tabular-nums; }
+  .nav button::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--fg);
+    transform: scaleX(0); transform-origin: left; transition: transform .45s cubic-bezier(.7,0,.2,1);
+  }
+  .nav button[aria-current="true"] { opacity: 1; }
+  .nav button[aria-current="true"]::after { transform: scaleX(1); }
+  .nav .short { display: none; }
+
+  /* ---------- Kontakt (immer sichtbar) ---------- */
+  .contact {
+    position: fixed; left: var(--gutter); bottom: calc(16px + env(safe-area-inset-bottom)); z-index: 20;
+    display: flex; flex-direction: column; gap: 2px; font-size: 15px;
+  }
+  .contact a { width: fit-content; transform-origin: left center; transition: transform .35s var(--ease); }
+  .contact a span { background: var(--fg); color: var(--bg); padding: 1px 7px; }
+
+  .app {
+    position: fixed; right: var(--gutter); bottom: calc(16px + env(safe-area-inset-bottom)); z-index: 20;
+    display: block; padding: 4px; opacity: .7; transition: opacity .3s, transform .35s var(--ease);
+  }
+  .app img { height: 36px; width: auto; display: block; filter: drop-shadow(0 1px 6px rgba(0,0,0,.5)); }
+
+  /* ---------- Slides ---------- */
+  .track {
+    position: relative; z-index: 1; display: flex; width: 300vw; height: 100%;
+    transition: transform .8s cubic-bezier(.7,0,.2,1); will-change: transform;
+  }
+  .slide {
+    width: 100vw; height: 100%; flex: none; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: var(--top) var(--gutter) var(--bottom);
+  }
+  .slide > * { opacity: 0; transform: translateY(18px); transition: opacity .7s .25s, transform .9s .25s cubic-bezier(.2,.7,.2,1); }
+  .slide.active > * { opacity: 1; transform: none; }
+
+  /* 01 */
+  .s1 { justify-content: center; align-items: center; text-align: center; }
+  .s1 h1 {
+    font-family: "Archivo", "Inter Tight", sans-serif; font-weight: 300; font-stretch: 125%;
+    text-transform: uppercase; letter-spacing: .04em; line-height: 1; white-space: nowrap;
+    font-size: clamp(22px, min(6.2vw, 9.5vh), 104px);
+    text-shadow: 0 2px 30px rgba(0,0,0,.35);
+  }
+  .s1 p {
+    margin-top: clamp(12px, 2.2vh, 24px);
+    font-weight: 500; text-transform: uppercase; letter-spacing: .18em;
+    font-size: clamp(12px, 1.3vw, 17px); opacity: .85;
+  }
+  .s1 p span { opacity: .6; }
+
+  /* 02 */
+  .s2 { justify-content: center; }
+  .label { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: var(--muted); margin-bottom: clamp(10px, 2vh, 24px); }
+  .clients { list-style: none; border-top: 1px solid var(--line); }
+  .clients li { border-bottom: 1px solid var(--line); }
+  .clients a {
+    display: inline-block; padding: clamp(6px, 1.4vh, 16px) 0;
+    font-weight: 900; text-transform: uppercase; letter-spacing: -.02em; line-height: 1;
+    font-size: clamp(24px, min(8vw, 7.5vh), 104px);
+    transform-origin: left center; transition: transform .35s var(--ease);
+  }
+  .clients a img { display: block; width: auto; max-width: 100%; object-fit: contain; object-position: left center; }
+
+  /* 03 */
+  .s3 { justify-content: center; }
+  .studio-link { display: block; width: fit-content; }
+  .studio-link h2 {
+    font-weight: 900; text-transform: uppercase; letter-spacing: -.02em; line-height: .9;
+    font-size: clamp(48px, min(13vw, 18vh), 190px);
+    transform-origin: left center; transition: transform .4s var(--ease);
+  }
+  .studio-link h2 em { font-style: normal; font-weight: 400; }
+
+  /* Hover nur mit Maus: Element wird etwas größer */
+  @media (hover: hover) {
+    .nav button:hover { opacity: 1; transform: scale(1.08); }
+    .contact a:hover { transform: scale(1.08); }
+    .app:hover { opacity: 1; transform: scale(1.15); }
+    .clients a:hover { transform: scale(1.06); }
+    .studio-link:hover h2 { transform: scale(1.04); }
+  }
+
+  @media (max-width: 760px) {
+    :root { --top: calc(64px + env(safe-area-inset-top)); }
+    .nav { gap: 18px; }
+    .nav small, .nav .long { display: none; }
+    .nav .short { display: inline; }
+    .contact { font-size: 14px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .track, .slide > * { transition: none !important; }
+  }
+</style>
+</head>
+<body data-slide="0">
+
+<div class="reel" aria-hidden="true">
+  <video id="reel" muted loop playsinline preload="auto" poster="media/showreel-poster.jpg"></video>
+</div>
+
+<header class="head">
+  <nav class="nav" aria-label="Bereiche">
+    <button data-go="0" aria-current="true">Musiker</button>
+    <button data-go="1"><span class="long">Stagemanagement &amp; Technik</span><span class="short">Stage &amp; Technik</span></button>
+    <button data-go="2">Studio</button>
+  </nav>
+</header>
+
+<div class="contact" aria-label="Kontakt">
+  <a id="c-phone" href="#"><span></span></a>
+  <a id="c-mail" href="#"><span></span></a>
+</div>
+
+<a class="app" href="https://simeoncoester.github.io/Tech-Assistant-2.0/" target="_blank" rel="noopener" title="Tech Assistent" aria-label="Tech Assistent App öffnen">
+  <img src="img/techassistent-logo.png" alt="Tech Assistent">
+</a>
+
+<main class="track" id="track">
+  <section class="slide s1 active" id="musiker" aria-label="Musiker">
+    <h1>Simeon Cöster</h1>
+    <p>Schlagzeug <span>—</span> Live <span>&amp;</span> im Studio</p>
+  </section>
+
+  <section class="slide s2" id="stagemanagement" aria-label="Stagemanagement und Technik">
+    <div class="label">Stagemanagement &amp; Technik</div>
+    <ul class="clients" id="clients"></ul>
+  </section>
+
+  <section class="slide s3" id="studio" aria-label="Studio">
+    <a class="studio-link" href="https://www.protopop-studio.de" target="_blank" rel="noopener">
+      <h2>Protopop<br><em>Studio</em></h2>
+    </a>
+  </section>
+</main>
+
+<script>
+/* ===== Inhalte ===== */
+const CONTACT = { phone: '–', tel: '', mail: 'simeoncoester@gmail.com' };
+// [Name, Link, Logo-Datei (optional), Logo-Höhe relativ zur Schriftgröße]
+const CLIENTS = [
+  ['Isolation Berlin', 'https://www.isolationberlin.de/', 'img/logos/isolation-berlin.png', .8],
+  ['BHZ', 'https://bhz.cloud/', 'img/logos/bhz.svg', .85],
+  ['Moka Efti Orchestra', 'https://www.sixdegreesrecords.com/moka-efti-orchestra/'],
+  ['$OHO BANI', 'https://music.apple.com/de/artist/oho-bani/1463413478'],
+  ['Zartmann', 'https://zartmann.eu/', 'img/logos/zartmann.png', .95],
+  ['Badmómzjay', 'https://shop.badmomzjay.de/', 'img/logos/badmomzjay.png', 1.7]
+];
+/* =================== */
+
+const $ = s => document.querySelector(s);
+$('#c-phone').href = 'tel:' + CONTACT.tel; $('#c-phone span').textContent = CONTACT.phone;
+$('#c-mail').href = 'mailto:' + CONTACT.mail; $('#c-mail span').textContent = CONTACT.mail;
+CLIENTS.forEach(([name, url, logo, size = 1]) => {
+  const li = document.createElement('li'), a = document.createElement('a');
+  a.href = url; a.target = '_blank'; a.rel = 'noopener';
+  if (logo) {
+    const img = new Image(); img.src = logo; img.alt = name;
+    img.style.height = size + 'em';
+    if (size > 1) img.style.margin = `${-(size - 1) / 4}em 0`;   // große Logos dürfen etwas in die Zeile ragen
+    a.append(img); a.setAttribute('aria-label', name);
+  } else a.textContent = name;
+  li.append(a); $('#clients').append(li);
+});
+
+// Video (läuft unter allen Slides)
+const reel = $('#reel');
+reel.src = (Math.max(innerWidth, innerHeight) * devicePixelRatio > 1700 && !navigator.connection?.saveData)
+  ? 'media/showreel.mp4' : 'media/showreel-720.mp4';
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) { reel.autoplay = true; reel.play().catch(() => {}); }
+document.addEventListener('visibilitychange', () => { if (!document.hidden && reel.autoplay) reel.play().catch(() => {}); });
+
+// Slides
+const track = $('#track');
+const slides = [...document.querySelectorAll('.slide')];
+const ids = slides.map(s => s.id);
+let cur = 0;
+function go(i, push = true) {
+  cur = Math.max(0, Math.min(slides.length - 1, i));
+  track.style.transform = `translateX(${-100 * cur}vw)`;
+  document.body.dataset.slide = cur;
+  slides.forEach((s, k) => { s.classList.toggle('active', k === cur); s.inert = k !== cur; });
+  document.querySelectorAll('.nav button').forEach(b => b.setAttribute('aria-current', +b.dataset.go === cur));
+  if (push) history.replaceState(null, '', '#' + ids[cur]);
+}
+document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); go(+b.dataset.go); }));
+addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') go(cur + 1);
+  if (e.key === 'ArrowLeft') go(cur - 1);
+});
+addEventListener('hashchange', () => { const k = ids.indexOf(location.hash.slice(1)); if (k >= 0) go(k, false); });
+
+// Wischen (Touch)
+let sx = 0, sy = 0, st = 0;
+addEventListener('touchstart', e => { const t = e.touches[0]; sx = t.clientX; sy = t.clientY; st = Date.now(); }, { passive: true });
+addEventListener('touchend', e => {
+  const t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2 && Date.now() - st < 900) go(cur + (dx < 0 ? 1 : -1));
+}, { passive: true });
+
+// Trackpad / Mausrad: seitlich oder nach unten = weiter
+let acc = 0, lock = 0, reset;
+addEventListener('wheel', e => {
+  e.preventDefault();
+  const now = Date.now(); if (now < lock) return;
+  acc += Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+  if (Math.abs(acc) > 60) { go(cur + (acc > 0 ? 1 : -1)); acc = 0; lock = now + 900; }
+  clearTimeout(reset); reset = setTimeout(() => acc = 0, 200);
+}, { passive: false });
+
+const start = ids.indexOf(location.hash.slice(1));
+track.style.transition = 'none'; go(start >= 0 ? start : 0, false);
+requestAnimationFrame(() => requestAnimationFrame(() => track.style.transition = ''));
+</script>
+</body>
+</html>
