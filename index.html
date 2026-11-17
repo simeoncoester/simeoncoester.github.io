@@ -189,7 +189,6 @@
 </header>
 
 <div class="contact" aria-label="Kontakt">
-  <a id="c-phone" href="#"><span></span></a>
   <a id="c-mail" href="#"><span></span></a>
 </div>
 
@@ -206,7 +205,7 @@
     <h2>Impressum</h2>
     <p>Angaben gemäß § 5 DDG</p>
     <p>Simeon Cöster<br>Wittstocker Straße 7A<br>10553 Berlin</p>
-    <p>Telefon: <a href="tel:">–</a><br>E-Mail: <a href="mailto:simeoncoester@gmail.com">simeoncoester@gmail.com</a></p>
+    <p>E-Mail: <a href="mailto:simeoncoester@gmail.com">simeoncoester@gmail.com</a></p>
     <p>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV:<br>Simeon Cöster, Anschrift wie oben</p>
 
     <h2>Datenschutz</h2>
@@ -219,7 +218,7 @@
     <h3>Cookies und Tracking</h3>
     <p>Diese Website setzt keine Cookies und verwendet keine Analyse- oder Tracking-Werkzeuge.</p>
     <h3>Kontaktaufnahme</h3>
-    <p>Wenn du mich per E-Mail oder Telefon kontaktierst, verwende ich deine Angaben nur, um deine Anfrage zu bearbeiten (Art. 6 Abs. 1 lit. b und f DSGVO).</p>
+    <p>Wenn du mich per E-Mail kontaktierst, verwende ich deine Angaben nur, um deine Anfrage zu bearbeiten (Art. 6 Abs. 1 lit. b und f DSGVO).</p>
     <h3>Externe Links</h3>
     <p>Diese Seite verlinkt auf Websites von Künstler:innen, das Protopop Studio und die App Tech Assistent. Für deren Inhalte und Datenverarbeitung sind die jeweiligen Betreiber verantwortlich.</p>
     <h3>Deine Rechte</h3>
@@ -247,7 +246,7 @@
 
 <script>
 /* ===== Inhalte ===== */
-const CONTACT = { phone: '–', tel: '', mail: 'simeoncoester@gmail.com' };
+const CONTACT = { mail: 'simeoncoester@gmail.com' };
 // [Name, Link, Logo-Datei (optional), Logo-Höhe relativ zur Schriftgröße]
 const CLIENTS = [
   ['Isolation Berlin', 'https://www.isolationberlin.de/', 'img/logos/isolation-berlin.png', .8],
@@ -260,7 +259,6 @@ const CLIENTS = [
 /* =================== */
 
 const $ = s => document.querySelector(s);
-$('#c-phone').href = 'tel:' + CONTACT.tel; $('#c-phone span').textContent = CONTACT.phone;
 $('#c-mail').href = 'mailto:' + CONTACT.mail; $('#c-mail span').textContent = CONTACT.mail;
 CLIENTS.forEach(([name, url, logo, size = 1]) => {
   const li = document.createElement('li'), a = document.createElement('a');
