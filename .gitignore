@@ -6,5 +6,11 @@
 !/img/
 /img/*
 !/img/techassistent-logo.png
+!/img/og.jpg
+!/img/favicon-48.png
+!/img/favicon-192.png
+!/img/apple-touch-icon.png
 !/img/logos/
 !/fonts/
+!/robots.txt
+!/sitemap.xml
